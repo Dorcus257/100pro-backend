@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.env import load_env
 
+load_env()
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s.%(msecs)03d [%(levelname)s] %(name)s — %(message)s",
@@ -55,18 +56,13 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-##app.include_router(
-##    kakao_router,
-##    prefix="/kakao-authentication",
-##    tags=["kakao-authentication"],
-##)
 
 from app.domains.auth.router import router as auth_router  # noqa: E402
 from app.domains.task.router import router as task_router  # noqa: E402
